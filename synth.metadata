@@ -4,14 +4,14 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/python-test-utils.git",
-        "sha": "d3d3ce8cd09a7134b250465f12a0bbfb94aa13e6"
+        "sha": "9e454e34f6785bda65e2fc5310396f9e149d7b41"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "e99975b6b49827b8720f0a885e218dbdb67849ca"
+        "sha": "d2364eb80b840a36136c8ce12f1c6efabcc9600e"
       }
     }
   ]
