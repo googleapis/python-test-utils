@@ -45,7 +45,6 @@ setuptools.setup(
         "six>=1.4.0",
         "click>=7.0.0",
         "packaging>=19.0",
-        "colorlog>=3.0.0",
     ),
     python_requires=">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*",
     classifiers=[

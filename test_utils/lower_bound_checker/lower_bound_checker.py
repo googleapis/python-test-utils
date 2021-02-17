@@ -216,6 +216,8 @@ def check(ctx: click.Context, package_name: str, constraints_file: str):
     The constraints file should pin every requirement to a single version.
 
         foo==1.2.0
+    
+    The package must already be installed in the environment.
     """
 
     package_requirements = _get_package_requirements(package_name)
