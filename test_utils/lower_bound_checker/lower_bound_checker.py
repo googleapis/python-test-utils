@@ -202,7 +202,7 @@ def update(ctx: click.Context, package_name: str, constraints_file: str) -> None
 @click.option("--constraints-file", required=True, help="Path to constraints file.")
 @click.pass_context
 def check(ctx: click.Context, package_name: str, constraints_file: str):
-    """Check that the constraints-file pins to the lower bound specified in the package-name's
+    """Check that the constraints-file pins to the lower bound specified in package-name's
     setup.py for each requirement.
 
     Requirements: 
@@ -221,7 +221,7 @@ def check(ctx: click.Context, package_name: str, constraints_file: str):
 
         * foo==1.2.0
     
-    3. The package is already be installed in the environment.
+    3. packge-name is already be installed in the environment.
     """
 
     package_requirements = _get_package_requirements(package_name)
