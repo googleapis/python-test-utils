@@ -68,11 +68,11 @@ def _get_pinned_versions(
     Other formats will result in an error.
 
         {("requests", Version("1.25.0"), ("google-auth", Version("1.0.0")}
-    
+
     Args:
         ctx (click.Context): The current click context.
         requirements (List[Requirement]): A list of requirements.
-    
+
     Returns:
         Set[Tuple[str, Version]]: Tuples of the package name and Version.
     """
@@ -115,7 +115,7 @@ def _lower_bound(requirement: Requirement) -> str:
 
     Args:
         requirement (Requirement): A requirement to parse
-    
+
     Returns:
         str: The lower bound for the requirement.
     """
@@ -146,11 +146,11 @@ def _get_package_lower_bounds(
 ) -> Set[Tuple[str, Version]]:
     """Get a set of tuples ('package_name', Version('1.0.0')) from a
     list of Requirements.
-    
+
     Args:
         ctx (click.Context): The current click context.
         requirements (List[Requirement]): A list of requirements.
-    
+
     Returns:
         Set[Tuple[str, Version]]: A set of (package_name, lower_bound)
             tuples.
@@ -205,7 +205,7 @@ def check(ctx: click.Context, package_name: str, constraints_file: str):
     """Check that the constraints-file pins to the lower bound specified in package-name's
     setup.py for each requirement.
 
-    Requirements: 
+    Requirements:
 
     1. The setup.py pins every requirement in one of the following formats:
 
@@ -220,7 +220,7 @@ def check(ctx: click.Context, package_name: str, constraints_file: str):
     2. The constraints file pins every requirement to a single version:
 
         * foo==1.2.0
-    
+
     3. package-name is already installed in the environment.
     """
 

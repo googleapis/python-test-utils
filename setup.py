@@ -42,7 +42,7 @@ setuptools.setup(
     include_package_data=True,
     install_requires=(
         "google-auth >= 0.4.0",
-        "six>=1.4.0",
+        "six>=1.9.0",
         "click>=7.0.0",
         "packaging>=19.0",
     ),

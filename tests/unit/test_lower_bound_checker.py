@@ -25,7 +25,7 @@ from test_utils.lower_bound_checker import lower_bound_checker
 
 RUNNER = CliRunner()
 
-PACKGE_LIST_REGEX = re.compile("Error.*[\[\{](.+)[\]\}]")
+PACKAGE_LIST_REGEX = re.compile(r"Error.*[\[\{](.+)[\]\}]")
 DIFFERENT_VERSIONS_LIST_REGEX = re.compile("'(.*?)' lower bound is")
 
 # These packages are installed into the environment by the nox session
@@ -40,7 +40,7 @@ def parse_error_msg(msg: str) -> List[str]:
     Example:
         Error: setup.py is missing explicit lower bounds for the following packages: ["requests", "grpcio"]
     """
-    match = PACKGE_LIST_REGEX.search(msg)
+    match = PACKAGE_LIST_REGEX.search(msg)
 
     reqs = []
 
