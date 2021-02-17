@@ -183,7 +183,7 @@ def main():
 @click.option("--constraints-file", required=True, help="Path to constraints file.")
 @click.pass_context
 def update(ctx: click.Context, package_name: str, constraints_file: str) -> None:
-    """Create a constraints file with lower bounds for the specified package.
+    """Create a constraints file with lower bounds for packaage-name.
 
     If the constraints file already exists the contents will be overwritten.
     """
@@ -202,22 +202,26 @@ def update(ctx: click.Context, package_name: str, constraints_file: str) -> None
 @click.option("--constraints-file", required=True, help="Path to constraints file.")
 @click.pass_context
 def check(ctx: click.Context, package_name: str, constraints_file: str):
-    """Given a package name and a constraints_file, check that the constraints_file
-    explicitly pins to the lower bound specified in the setup.py for each requirement.
+    """Check that the constraints-file pins to the lower bound specified in the package-name's
+    setup.py for each requirement.
 
-    The lower bound can be determined for a requirement only if it is one of these
-    formats:
+    Requirements: 
 
-        foo==1.2.0
-        foo>=1.2.0
-        foo>=1.2.0, <2.0.0dev
-        foo<2.0.0dev, >=1.2.0
+    1. The setup.py pins every requirement in one of the following formats:
 
-    The constraints file should pin every requirement to a single version.
+        * foo==1.2.0
 
-        foo==1.2.0
+        * foo>=1.2.0
+
+        * foo>=1.2.0, <2.0.0dev
+
+        * foo<2.0.0dev, >=1.2.0
+
+    2. The constraints file pins every requirement to a single version:
+
+        * foo==1.2.0
     
-    The package must already be installed in the environment.
+    3. The package is already be installed in the environment.
     """
 
     package_requirements = _get_package_requirements(package_name)
