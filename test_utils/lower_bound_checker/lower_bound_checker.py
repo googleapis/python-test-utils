@@ -221,7 +221,7 @@ def check(ctx: click.Context, package_name: str, constraints_file: str):
 
         * foo==1.2.0
     
-    3. packge-name is already be installed in the environment.
+    3. package-name is already installed in the environment.
     """
 
     package_requirements = _get_package_requirements(package_name)
