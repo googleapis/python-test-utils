@@ -183,7 +183,7 @@ def main():
 @click.option("--constraints-file", required=True, help="Path to constraints file.")
 @click.pass_context
 def update(ctx: click.Context, package_name: str, constraints_file: str) -> None:
-    """Create a constraints file with lower bounds for packaage-name.
+    """Create a constraints file with lower bounds for package-name.
 
     If the constraints file already exists the contents will be overwritten.
     """
