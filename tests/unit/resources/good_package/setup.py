@@ -22,7 +22,7 @@ requirements = [
     "requests>=1.0.0",
     "packaging>=14.0, <20.0.0",
     "six<2.0.0, >=1.0.0",
-    "click==7.0.0",
+    "click==8.0.0",
 ]
 
 extras = {"grpc": "grpcio>=1.0.0"}
