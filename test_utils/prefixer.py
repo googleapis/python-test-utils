@@ -29,7 +29,8 @@ def _common_prefix(repo, relative_dir, separator="_"):
 
 
 class Prefixer(object):
-    """
+    """Create/manage resource IDs for system testing.
+    
     Usage:
 
     Creating resources:
