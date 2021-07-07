@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import builtins
-import mock
+from unittest import mock
 
 
 def maybe_fail_import(predicate):
