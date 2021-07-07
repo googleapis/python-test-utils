@@ -23,8 +23,8 @@ _RE_SEPARATORS = re.compile(r"[/\-\\_]")
 
 
 def _common_prefix(repo, relative_dir, separator="_"):
-    repo = re.sub(_RE_SEPARATORS, separator, repo)
-    relative_dir = re.sub(_RE_SEPARATORS, separator, relative_dir)
+    repo = _RE_SEPARATORS.sub(separator, repo)
+    relative_dir = _RE_SEPARATORS.sub(separator, relative_dir)
     return f"{repo}{separator}{relative_dir}"
 
 
