@@ -21,8 +21,8 @@ import setuptools
 requirements = [
     "requests>=1.0.0",
     "packaging>=14.0, <22.0.0",
-    "wheel<0.36.0, >=0.35.0",
-    "click==7.0.0",
+    "wheel<0.38.0, >=0.35.0",
+    "click==8.0.1",
 ]
 
 extras = {"grpc": "grpcio>=1.0.0"}
