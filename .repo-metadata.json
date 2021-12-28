@@ -10,6 +10,5 @@
     "repo": "googleapis/python-test-utils",
     "distribution_name": "google-cloud-testutils",
     "default_version": "",
-    "codeowner_team": "",
-    "api_shortname": "google-cloud-test-utils"
+    "codeowner_team": ""
 }
