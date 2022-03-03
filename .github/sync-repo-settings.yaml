@@ -1,4 +1,3 @@
-@@ -1,31 +0,0 @@
 # https://github.com/googleapis/repo-automation-bots/tree/main/packages/sync-repo-settings
 # Rules for main branch protection
 branchProtectionRules:
