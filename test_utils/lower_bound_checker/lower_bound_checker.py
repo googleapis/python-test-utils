@@ -18,7 +18,11 @@ from typing import List, Tuple, Set
 import click
 from packaging.requirements import Requirement
 from packaging.version import Version
-import pkg_resources
+
+try:
+    from importlib import metadata
+except ImportError:
+    import importlib_metadata as metadata
 
 
 def _get_package_requirements(package_name: str) -> List[Requirement]:
@@ -30,13 +34,9 @@ def _get_package_requirements(package_name: str) -> List[Requirement]:
         package_name (str): The name of the package.
 
     Returns:
-        List[pkg_resources.Requirement]: A list of package requirements and extras.
+        List[packaging.requirements.Requirement]: A list of package requirements and extras.
     """
-    dist = pkg_resources.get_distribution(package_name)
-    extras = tuple(dist.extras)
-    requirements = [Requirement(str(r)) for r in dist.requires(extras=extras)]
-
-    return requirements
+    return [Requirement(str(r)) for r in metadata.distribution(package_name).requires]
 
 
 def _parse_requirements_file(requirements_file: str) -> List[Requirement]:
