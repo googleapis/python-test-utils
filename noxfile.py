@@ -123,7 +123,7 @@ def check_lower_bounds(session):
         "--package-name",
         "google-cloud-testutils",
         "--constraints-file",
-        "testing/constraints-3.6.txt",
+        "testing/constraints-3.7.txt",
     )
 
 
@@ -137,5 +137,5 @@ def update_lower_bounds(session):
         "--package-name",
         "google-cloud-testutils",
         "--constraints-file",
-        "testing/constraints-3.6.txt",
+        "testing/constraints-3.7.txt",
     )
