@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.4.0](https://github.com/googleapis/python-test-utils/compare/v1.3.3...v1.4.0) (2023-11-29)
+## [1.4.0rc1](https://github.com/googleapis/python-test-utils/compare/v1.3.3...v1.4.0rc1) (2023-11-29)
 
 
 ### Features
