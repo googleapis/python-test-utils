@@ -13,13 +13,14 @@
 # limitations under the License.
 
 from contextlib import contextmanager
+import importlib.metadata
 from pathlib import Path
 import re
 import tempfile
 from typing import List
 
 from click.testing import CliRunner
-import pytest  # type: ignore
+import pytest
 
 from test_utils.lower_bound_checker import lower_bound_checker
 
@@ -32,6 +33,14 @@ DIFFERENT_VERSIONS_LIST_REGEX = re.compile("'(.*?)' lower bound is")
 # See 'resources/' for the setup.py files
 GOOD_PACKAGE = "valid-package"
 BAD_PACKAGE = "invalid-package"
+
+
+def skip_test_if_not_installed(package_name: str):
+    """Skips the current test if given package is not installed"""
+    try:
+        importlib.metadata.distribution(package_name)
+    except importlib.metadata.PackageNotFoundError:
+        pytest.skip(f"Skipping test which requires {package_name} in `tests/unit/resources/` to be installed")
 
 
 def parse_error_msg(msg: str) -> List[str]:
@@ -76,6 +85,8 @@ def constraints_file(requirements: List[str]):
 
 
 def test_update_constraints():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     with tempfile.TemporaryDirectory() as tmpdir:
         constraints_path = Path(tmpdir) / "constraints.txt"
 
@@ -93,6 +104,8 @@ def test_update_constraints():
 
 
 def test_update_constraints_overwrites_existing_file():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==13.0",
@@ -111,6 +124,8 @@ def test_update_constraints_overwrites_existing_file():
         ]
 
 def test_update_constraints_with_setup_py_missing_lower_bounds():
+    skip_test_if_not_installed(BAD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
@@ -131,6 +146,8 @@ def test_update_constraints_with_setup_py_missing_lower_bounds():
 
 
 def test_check():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
@@ -147,6 +164,8 @@ def test_check():
 
 
 def test_update_constraints_with_extra_constraints():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
@@ -164,6 +183,8 @@ def test_update_constraints_with_extra_constraints():
 
 
 def test_check_with_missing_constraints_file():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     result = RUNNER.invoke(
         lower_bound_checker.check,
         [
@@ -179,6 +200,8 @@ def test_check_with_missing_constraints_file():
 
 
 def test_check_with_constraints_file_invalid_pins():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
@@ -198,6 +221,8 @@ def test_check_with_constraints_file_invalid_pins():
 
 
 def test_check_with_constraints_file_missing_packages():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
@@ -215,6 +240,8 @@ def test_check_with_constraints_file_missing_packages():
 
 
 def test_check_with_constraints_file_different_versions():
+    skip_test_if_not_installed(GOOD_PACKAGE)
+
     constraints = [
         "requests==1.2.0",  # setup.py has 1.0.0
         "packaging==14.1",  # setup.py has 14.0
@@ -234,6 +261,8 @@ def test_check_with_constraints_file_different_versions():
 
 
 def test_check_with_setup_py_missing_lower_bounds():
+    skip_test_if_not_installed(BAD_PACKAGE)
+
     constraints = [
         "requests==1.0.0",
         "packaging==14.0",
