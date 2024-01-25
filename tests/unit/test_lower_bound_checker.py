@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from contextlib import contextmanager
-import importlib.metadata
 from pathlib import Path
 import re
 import tempfile
@@ -21,6 +20,12 @@ from typing import List
 
 from click.testing import CliRunner
 import pytest
+
+try:
+    import importlib.metadata as importlib_metadata
+except:
+    # For Python 3.7 compatibility
+    import importlib_metadata
 
 from test_utils.lower_bound_checker import lower_bound_checker
 
@@ -38,7 +43,7 @@ BAD_PACKAGE = "invalid-package"
 def skip_test_if_not_installed(package_name: str):
     """Skips the current test if given package is not installed"""
     try:
-        importlib.metadata.distribution(package_name)
+        importlib_metadata.distribution(package_name)
     except importlib.metadata.PackageNotFoundError:
         pytest.skip(f"Skipping test which requires {package_name} in `tests/unit/resources/` to be installed")
 
