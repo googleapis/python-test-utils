@@ -16,14 +16,15 @@ from contextlib import contextmanager
 from pathlib import Path
 import re
 import tempfile
+import sys
 from typing import List
 
 from click.testing import CliRunner
-import pytest
+import pytest  # type: ignore
 
-try:
+if sys.version_info >= (3, 8):
     import importlib.metadata as importlib_metadata
-except:
+else:
     # For Python 3.7 compatibility
     import importlib_metadata
 
@@ -44,13 +45,15 @@ def skip_test_if_not_installed(package_name: str):
     """Skips the current test if given package is not installed"""
     try:
         importlib_metadata.distribution(package_name)
-    except importlib.metadata.PackageNotFoundError:
-        pytest.skip(f"Skipping test which requires {package_name} in `tests/unit/resources/` to be installed")
+    except importlib_metadata.PackageNotFoundError:
+        pytest.skip(
+            f"Skipping test which requires {package_name} in `tests/unit/resources/` to be installed"
+        )
 
 
 def parse_error_msg(msg: str) -> List[str]:
     """Get package names from the error message.
-    
+
     Example:
         Error: setup.py is missing explicit lower bounds for the following packages: ["requests", "grpcio"]
     """
@@ -61,12 +64,13 @@ def parse_error_msg(msg: str) -> List[str]:
     if match:
         reqs = match.groups(1)[0].split(",")  # type: ignore
         reqs = [r.strip().replace("'", "").replace('"', "") for r in reqs]
-    
+
     return reqs
+
 
 def parse_diff_versions_error_msg(msg: str) -> List[str]:
     """Get package names from the error message listing different versions
-    
+
     Example:
         'requests' lower bound is 1.2.0 in setup.py but constraints file has 1.3.0
         'grpcio' lower bound is 1.0.0 in setup.py but constraints file has 1.10.0
@@ -75,6 +79,7 @@ def parse_diff_versions_error_msg(msg: str) -> List[str]:
     pkg_names = pattern.findall(msg)
 
     return pkg_names
+
 
 @contextmanager
 def constraints_file(requirements: List[str]):
@@ -96,16 +101,27 @@ def test_update_constraints():
         constraints_path = Path(tmpdir) / "constraints.txt"
 
         result = RUNNER.invoke(
-            lower_bound_checker.update, ["--package-name", GOOD_PACKAGE, "--constraints-file", str(constraints_path)]
+            lower_bound_checker.update,
+            [
+                "--package-name",
+                GOOD_PACKAGE,
+                "--constraints-file",
+                str(constraints_path),
+            ],
         )
 
         assert result.exit_code == 0
         assert constraints_path.exists()
-    
+
         output = constraints_path.read_text().split("\n")
 
-        assert output == ["click==7.0.0", "grpcio==1.0.0", "packaging==14.0", "requests==1.0.0", "wheel==0.41.0",]
-
+        assert output == [
+            "click==7.0.0",
+            "grpcio==1.0.0",
+            "packaging==14.0",
+            "requests==1.0.0",
+            "wheel==0.41.0",
+        ]
 
 
 def test_update_constraints_overwrites_existing_file():
@@ -119,14 +135,21 @@ def test_update_constraints_overwrites_existing_file():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.update, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.update,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
         assert result.exit_code == 0
 
         output = c.read_text().split("\n")
-        assert output == ["click==7.0.0", "grpcio==1.0.0", "packaging==14.0", "requests==1.0.0", "wheel==0.41.0",
+        assert output == [
+            "click==7.0.0",
+            "grpcio==1.0.0",
+            "packaging==14.0",
+            "requests==1.0.0",
+            "wheel==0.41.0",
         ]
+
 
 def test_update_constraints_with_setup_py_missing_lower_bounds():
     skip_test_if_not_installed(BAD_PACKAGE)
@@ -139,7 +162,8 @@ def test_update_constraints_with_setup_py_missing_lower_bounds():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.update, ["--package-name", BAD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.update,
+            ["--package-name", BAD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 2
@@ -147,7 +171,6 @@ def test_update_constraints_with_setup_py_missing_lower_bounds():
 
     invalid_pkg_list = parse_error_msg(result.output)
     assert set(invalid_pkg_list) == {"requests", "packaging", "wheel"}
-
 
 
 def test_check():
@@ -158,11 +181,12 @@ def test_check():
         "packaging==14.0",
         "wheel==0.41.0",
         "click==7.0.0",
-        "grpcio==1.0.0"
+        "grpcio==1.0.0",
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 0
@@ -181,7 +205,8 @@ def test_update_constraints_with_extra_constraints():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 0
@@ -215,7 +240,8 @@ def test_check_with_constraints_file_invalid_pins():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 2
@@ -235,7 +261,8 @@ def test_check_with_constraints_file_missing_packages():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 2
@@ -252,11 +279,12 @@ def test_check_with_constraints_file_different_versions():
         "packaging==14.1",  # setup.py has 14.0
         "wheel==0.42.0",  # setup.py has 0.41.0
         "click==7.0.0",
-        "grpcio==1.0.0"
+        "grpcio==1.0.0",
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", GOOD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", GOOD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 2
@@ -276,7 +304,8 @@ def test_check_with_setup_py_missing_lower_bounds():
     ]
     with constraints_file(constraints) as c:
         result = RUNNER.invoke(
-            lower_bound_checker.check, ["--package-name", BAD_PACKAGE, "--constraints-file", c]
+            lower_bound_checker.check,
+            ["--package-name", BAD_PACKAGE, "--constraints-file", c],
         )
 
     assert result.exit_code == 2
