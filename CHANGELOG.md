@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/googleapis/python-test-utils/compare/v1.4.0...v1.4.1) (2024-04-07)
+
+
+### Documentation
+
+* Fix docs session ([#180](https://github.com/googleapis/python-test-utils/issues/180)) ([eed7277](https://github.com/googleapis/python-test-utils/commit/eed7277976b48f30a0f61e8dc5a2e5910d893002))
+
 ## [1.4.0](https://github.com/googleapis/python-test-utils/compare/v1.3.3...v1.4.0) (2023-11-29)
 
 
