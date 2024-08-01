@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,22 @@
 # limitations under the License.
 
 set -eo pipefail
+
+python3 -m pip install --require-hashes -r github/python-test-utils/.kokoro/requirements-aoss.txt
+python3 -m keyring --list-backends
+
+echo "[distutils]
+index-servers =
+    aoss-1p-python
+
+[aoss-1p-python]
+repository: https://us-python.pkg.dev/cloud-aoss-1p/cloud-aoss-1p-python/" >> $HOME/.pypirc
+
+echo "[install]
+index-url = https://us-python.pkg.dev/cloud-aoss-1p/cloud-aoss-1p-python/simple/
+trusted-host = us-python.pkg.dev" >> $HOME/pip.conf
+
+export PIP_CONFIG_FILE=$HOME/pip.conf
 
 # Start the releasetool reporter
 python3 -m pip install --require-hashes -r github/python-test-utils/.kokoro/requirements.txt
