@@ -15,9 +15,19 @@
 
 set -eo pipefail
 
+ls -al /venv/lib/python3.9/site-packages/
+ls -al /venv/lib/python3.9/site-packages/ 1>&2
+
+whoami
+
 # Start the releasetool reporter
+echo "installing release reporter deps" 1>&2
 python3 -m pip install --require-hashes -r .kokoro/requirements.txt
+
+echo "done installing release reporter deps" 1>&2
 python3 -m releasetool publish-reporter-script > /tmp/publisher-script; source /tmp/publisher-script
+
+echo "done running publish reporter" 1>&2
 
 # Disable buffering, so that the logs stream through.
 export PYTHONUNBUFFERED=1
