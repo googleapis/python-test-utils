@@ -25,5 +25,8 @@ export PYTHONUNBUFFERED=1
 # Move into the package, build the distribution and upload.
 TWINE_PASSWORD=$(cat "${KOKORO_KEYSTORE_DIR}/73713_google-cloud-pypi-token-keystore-3")
 cd github/python-test-utils
+
 python3 setup.py sdist bdist_wheel
+gcloud config get-value core/account
+
 twine upload --repository-url https://us-python.pkg.dev/oss-exit-gate-prod/google-cloud-testutils--pypi/ dist/*
