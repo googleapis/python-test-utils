@@ -29,4 +29,12 @@ cd github/python-test-utils
 python3 setup.py sdist bdist_wheel
 gcloud config get-value core/account
 
+python3 -m pip install -U keyring > /dev/null
+python3 -m pip install -U keyrings.google-artifactregistry-auth > /dev/null
+python3 -m pip install -U twine > /dev/null
+
+if ! gcloud auth application-default print-access-token --quiet > /dev/null; then
+    gcloud auth application-default login
+fi
+
 twine upload --repository-url https://us-python.pkg.dev/oss-exit-gate-prod/google-cloud-testutils--pypi/ dist/*
