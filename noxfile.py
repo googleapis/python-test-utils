@@ -107,7 +107,7 @@ def unit(session):
     session.run(
         "py.test",
         "--quiet",
-        f"--junitxml=unit_{session.python}_sponge_log.xml",
+        f"--junitxml=logs/unit_{session.python}_sponge_log.xml",
         "--cov=test_utils",
         "--cov=tests/unit",
         "--cov-append",
