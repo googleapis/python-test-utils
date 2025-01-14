@@ -84,6 +84,7 @@ def mypy(session):
     session.install(
         "mypy",
         "types-mock",
+        "types-requests",
         "types-setuptools",
     )
     session.run("mypy", "test_utils/", "tests/")
@@ -99,7 +100,7 @@ def unit(session):
     session.install(
         "-e", "tests/unit/resources/good_package", "tests/unit/resources/bad_package"
     )
-    session.install("google-api-python-client")
+    session.install("google-auth")
     session.install("pytest", "pytest-cov")
     session.install("-e", ".", "-c", constraints_path)
 

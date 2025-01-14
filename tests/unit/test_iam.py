@@ -24,14 +24,10 @@ def test_iam():
   request = google.auth.transport.requests.Request()
   credentials.refresh(request)
   token = credentials.token
-  payload = {
-    'access_token': token
-  }
-  resp = requests.post(f"https://oauth2.googleapis.com/tokeninfo", data=payload, headers={
+  resp = requests.post(f"https://oauth2.googleapis.com/tokeninfo", data={
+    'access_token': token    
+  }, headers={
     'content-type': 'application/x-www-form-urlencoded'
   })
   data = resp.json()
-  print(data)
-  # print(credentials.get_cred_info())
-  # resp = credentials.get("https://oauth2.googleapis.com/tokeninfo")
-  # print(resp)
+  print(data['email'])
