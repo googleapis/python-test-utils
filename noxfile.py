@@ -99,14 +99,15 @@ def unit(session):
     session.install(
         "-e", "tests/unit/resources/good_package", "tests/unit/resources/bad_package"
     )
-
+    session.install("google-api-python-client")
     session.install("pytest", "pytest-cov")
     session.install("-e", ".", "-c", constraints_path)
 
     # Run py.test against the unit tests.
     session.run(
         "py.test",
-        "--quiet",
+        # "--quiet",
+        "-s",
         f"--junitxml=logs/unit_{session.python}_sponge_log.xml",
         "--cov=test_utils",
         "--cov=tests/unit",
