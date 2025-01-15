@@ -30,4 +30,5 @@ def test_iam():
     'content-type': 'application/x-www-form-urlencoded'
   })
   data = resp.json()
-  print(data['email'])
+  assert 'email' in data
+  assert data['email'] is not None

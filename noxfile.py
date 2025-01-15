@@ -107,8 +107,7 @@ def unit(session):
     # Run py.test against the unit tests.
     session.run(
         "py.test",
-        # "--quiet",
-        "-s",
+        "--quiet",
         f"--junitxml=logs/unit_{session.python}_sponge_log.xml",
         "--cov=test_utils",
         "--cov=tests/unit",
@@ -117,6 +116,35 @@ def unit(session):
         "--cov-report=",
         "--cov-fail-under=0",
         os.path.join("tests", "unit"),
+        *session.posargs,
+    )
+
+@nox.session(python=["3.11"])
+def integration(session):
+    constraints_path = str(
+        CURRENT_DIRECTORY / "testing" / f"constraints-{session.python}.txt"
+    )
+
+    # Install two fake packages for the lower-bound-checker tests
+    session.install(
+        "-e", "tests/unit/resources/good_package", "tests/unit/resources/bad_package"
+    )
+    session.install("google-auth")
+    session.install("pytest", "pytest-cov")
+    session.install("-e", ".", "-c", constraints_path)
+
+    # Run py.test against the unit tests.
+    session.run(
+        "py.test",
+        "--quiet",
+        f"--junitxml=logs/unit_{session.python}_sponge_log.xml",
+        "--cov=test_utils",
+        "--cov=tests/integration",
+        "--cov-append",
+        "--cov-config=.coveragerc",
+        "--cov-report=",
+        "--cov-fail-under=0",
+        os.path.join("tests", "integration"),
         *session.posargs,
     )
 
