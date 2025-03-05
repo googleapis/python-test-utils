@@ -128,9 +128,9 @@ filelock==3.16.1 \
     --hash=sha256:2082e5703d51fbf98ea75855d9d5527e33d8ff23099bec374a134febee6946b0 \
     --hash=sha256:c249fbfcd5db47e5e2d6d62198e565475ee65e4831e2561c8e313fa7eb961435
     # via virtualenv
-gcp-docuploader==0.6.5 \
-    --hash=sha256:30221d4ac3e5a2b9c69aa52fdbef68cc3f27d0e6d0d90e220fc024584b8d2318 \
-    --hash=sha256:b7458ef93f605b9d46a4bf3a8dc1755dad1f31d030c8679edf304e343b347eea
+gcp-docuploader==0.7.1 \
+    --hash=sha256:3dc6b6ce079242584a4cb66c6d717920fda3e1db8f2de1383bd9db2aa7f42a05 \
+    --hash=sha256:5c1583f10c787195c6de53ad362bcb36d69a47b35ab957b91545aedd25b935f3
     # via -r requirements.in
 google-api-core==2.24.0 \
     --hash=sha256:10d82ac0fca69c82a25b3efdeefccf6f28e02ebb97925a8cce8edbfe379929d9 \
