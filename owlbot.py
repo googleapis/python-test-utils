@@ -41,6 +41,7 @@ s.move(
         "renovate.json",  # no bundle, ignore test resources
         ".github/workflows/docs.yml",  # no docs to publish
         "README.rst",
+        ".kokoro/presubmit/presubmit.cfg",  # Manually managed
     ],
 )
 
