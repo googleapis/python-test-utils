@@ -4,6 +4,31 @@
 
 [1]: https://pypi.org/project/google-cloud-testutils/#history
 
+## [1.7.0](https://github.com/googleapis/google-cloud-python/compare/google-cloud-testutils-v1.6.4...google-cloud-testutils-v1.7.0) (2025-10-29)
+
+
+### Features
+
+* Add Python 3.14 support (#284) * feat: Add Python 3.14 to noxfile.py
+* feat: Add Python 3.14 support
+* feat: Add 3.14 to repo settings
+* 🦉 Updates from OwlBot post-processor
+See https://github.com/googleapis/repo-automation-bots/blob/main/packages/owl-bot/README.md
+* fix: Specify unit_test_python_versions in owlbot.py
+* 🦉 Updates from OwlBot post-processor
+See https://github.com/googleapis/repo-automation-bots/blob/main/packages/owl-bot/README.md
+* fix: Update Kokoro presubmit sessions and default Nox Python
+* fix: Update lint workflow to use Python 3.13
+* chore(ci): Set default python to 3.13 for linting
+* chore(ci): Revert default python to 3.10 for OwlBot compatibility
+* 🦉 Updates from OwlBot post-processor
+See https://github.com/googleapis/repo-automation-bots/blob/main/packages/owl-bot/README.md
+* chore(ci): Exclude presubmit.cfg from OwlBot management
+* chore(ci): Restore manually managed presubmit.cfg
+* Apply suggestion from @chalmerlowe
+* updates package name for older version of python
+--------- ([3cb8491d67d65d2262aa1b65091ea9b615b583af](https://github.com/googleapis/google-cloud-python/commit/3cb8491d67d65d2262aa1b65091ea9b615b583af))
+
 ## [1.6.4](https://github.com/googleapis/python-test-utils/compare/v1.6.3...v1.6.4) (2025-05-19)
 
 
