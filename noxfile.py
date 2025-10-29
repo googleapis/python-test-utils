@@ -36,7 +36,7 @@ nox.options.sessions = [
 # Error if a python version is missing
 nox.options.error_on_missing_interpreters = True
 
-DEFAULT_PYTHON_VERSION = "3.13"
+DEFAULT_PYTHON_VERSION = "3.10"
 BLACK_VERSION = "black==23.7.0"
 BLACK_PATHS = ["test_utils", "setup.py"]
 CURRENT_DIRECTORY = pathlib.Path(__file__).parent.absolute()
