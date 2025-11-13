@@ -4,6 +4,13 @@
 
 [1]: https://pypi.org/project/google-cloud-testutils/#history
 
+## [1.8.0](https://github.com/googleapis/google-cloud-python/compare/google-cloud-testutils-v1.7.0...google-cloud-testutils-v1.8.0) (2025-11-13)
+
+
+### Features
+
+* some feature ([c61129e41b62c1521d1d6672d835849a2d849b85](https://github.com/googleapis/google-cloud-python/commit/c61129e41b62c1521d1d6672d835849a2d849b85))
+
 ## [1.7.0](https://github.com/googleapis/python-test-utils/compare/v1.6.4...v1.7.0) (2025-10-29)
 
 
