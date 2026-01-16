@@ -36,7 +36,7 @@ nox.options.sessions = [
 # Error if a python version is missing
 nox.options.error_on_missing_interpreters = True
 
-DEFAULT_PYTHON_VERSION = "3.10"
+DEFAULT_PYTHON_VERSION = "3.14"
 BLACK_VERSION = "black==23.7.0"
 BLACK_PATHS = ["test_utils", "setup.py"]
 CURRENT_DIRECTORY = pathlib.Path(__file__).parent.absolute()
@@ -74,7 +74,7 @@ def blacken(session):
 @nox.session(python=DEFAULT_PYTHON_VERSION)
 def lint_setup_py(session):
     """Verify that setup.py is valid (including RST check)."""
-    session.install("docutils", "pygments")
+    session.install("docutils", "pygments", "setuptools")
     session.run("python", "setup.py", "check", "--restructuredtext", "--strict")
 
 
